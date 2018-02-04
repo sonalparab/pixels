@@ -4,22 +4,23 @@
 #include <unistd.h>
 #include <string.h>
 
+#define SIZE 256 * 2
 #define STR_SIZE 18
 
 void generateimage(){
   int f = open("image.ppm",O_CREAT|O_WRONLY,0666);
 
   char * s = (char *) calloc(STR_SIZE,sizeof(char));
-  strcpy(s,"P3 750 750 255\n");
+  sprintf(s,"P3 %d %d %d\n",SIZE,SIZE,255);
   write(f,s,STR_SIZE);
 
   free(s);
   
   int i;
   int j;
-  for(i = 0; i < 750; i++){
-    for(j = 0; j < 750; j++){
-      int r = (750 - j) % 256;
+  for(i = 0; i < SIZE; i++){
+    for(j = 0; j < SIZE; j++){
+      int r = (SIZE - j) % 256;
       int g = i % 256;
       int b = j % 256;
       char * p = (char *) calloc(STR_SIZE,sizeof(char));
